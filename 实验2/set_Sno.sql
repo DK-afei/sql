@@ -1,0 +1,6 @@
+USE [11703990404_µËÇÅ];
+SELECT * FROM Student;
+UPDATE Student
+SET Sno='201215124'
+WHERE Sno='201215123';
+SELECT * FROM Student;

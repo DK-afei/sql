@@ -1,0 +1,10 @@
+USE [11703990404_µËÇÅ];
+CREATE TABLE SDG(
+Sdept CHAR(15),
+Avg_Grade SMALLINT);
+INSERT
+INTO SDG(Sdept,Avg_Grade)
+SELECT Student_SAG.Sdept,AVG(AG)
+FROM Student_SAG
+GROUP BY Student_SAG.Sdept;
+SELECT * FROM SDG;

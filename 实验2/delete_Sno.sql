@@ -1,0 +1,5 @@
+USE [11703990404_µËÇÅ];
+SELECT * FROM Student;
+DELETE FROM student
+WHERE Sno='201215124';
+SELECT * FROM Student;

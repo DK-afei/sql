@@ -1,0 +1,8 @@
+use [11703990404_µËÇÅ];
+CREATE TABLE Student(
+Sno CHAR(9) PRIMARY KEY,
+Sname CHAR(20) UNIQUE,
+Ssex CHAR(2),
+Sage SMALLINT,
+Sdept CHAR(20));
+SELECT *FROM Student;

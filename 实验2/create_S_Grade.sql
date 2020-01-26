@@ -1,0 +1,14 @@
+USE [11703990404_µËÇÅ];
+CREATE TABLE S_Grade(
+Sno CHAR(9),
+AVG_Grade SMALLINT,
+PRIMARY KEY (Sno),
+FOREIGN KEY(Sno) REFERENCES Student(Sno)
+);
+INSERT
+INTO S_Grade(Sno,AVG_Grade)
+SELECT Sno,AG
+FROM Student_SAG
+WHERE AG>=80 AND Ssex='ÄÐ';
+SELECT * FROM Student_SAG
+SELECT * FROM S_Grade;

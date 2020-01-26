@@ -1,0 +1,9 @@
+USE [11703990404_µËÇÅ];
+UPDATE SC
+SET Grade=0
+WHERE Sno IN
+(SELECT Sno
+FROM Student
+WHERE Sdept='CS');
+SELECT * FROM Student;
+SELECT * FROM SC;
