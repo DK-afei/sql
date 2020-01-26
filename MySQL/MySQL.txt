@@ -1,0 +1,353 @@
+关系型数据库常用概念
+1 DBMS 数据库管理系统
+2 字段（域） 元组 行（记录） 列
+3 存在数据冗余 失去数据完整性
+4 主键（确定唯一性，不能为空，为空则失去实体完整性）
+5 外键（失去引用完整性）
+6 域（字段，失去了域完整性）
+7 结构化查询语言（Structured Query Language）
+8 分类：
+	数据定义语言（DDL）
+	CREATE、ALTER、DROP
+	数据操纵语言（DML）
+	增加（insert)、删除（delete）、更新（update）和查询（select）
+	数据控制语言（DCL）
+	分配（grant）、回收（revoke）和拒绝（deny）
+
+数据库管理
+1 创建数据库
+CREATE DATABASE + 数据库名；
+2 删除数据库
+DROP DATABASE + 数据库名；
+
+MySQL常用数据类型
+1 整数
+tinyint smallint int bigint
+2 定点数、浮点数
+ decimal、 （float、double）
+3 日期/时间
+date time datetime
+4 文本
+char varchar text
+5 二进制
+bit
+
+数据表的设计及E-R图
+1 E-R（Entity-Relationship）实体关系图
+2 范式
+第一范式（确保每列的原子性）
+第二范式（要求每一个表只描述一件事）
+第三范式（要求表中不存在冗余字段）
+3 创建表
+
+为列添加约束
+1 主键约束（PRIMARY KEY,保证实体完整性）
+2 外键约束（REFERENCES，保证引用完整性）
+3 检查约束（CHECK，保证域完整性）
+4 默认约束（DEFAULT，保证域完整性）
+5 自增列 （AUTO_INCREMENT，保证实体完整性）
+
+查看表的结构
+语法	DESCRIBE/DESC TABLE_NAME
+查看表的详细结构
+语法	SHOW CREATE TABLE_NAME
+
+修改表名
+语法	ALTER TABLE OLD_NAME RENAME TO NEW_NAME
+
+修改字段名
+语法	ALTER TABLE TABLE_NAME
+	CHANGE OLD_NAME NAW_NAME NEW_TYPE
+修改字段数据类型
+语法	ALTER TABLE TABLE_NAME
+	MODIFY COL_NAME NEW_NAME
+添加字段
+语法	ALTER TABLE TABLE_NAME
+	ADD NEW_COL_NAME NEW_TYPE
+删除字段
+语法	ALTER TABLE_NAME
+	DROP COL_NAME
+
+增补约束
+添加主键约束
+语法	ALTER TABLE TABLE_NAME
+	ADD CONSTRAINT CON_NAME
+	PRIMARY KEY(COL_NAME)
+添加外键约束
+语法	ALTER TABLE F_TABLE
+	ADD CONSTRAINT CON_NAME
+	FOREIGN KEY(F_COL) REFERENCES M_TABLE(M_COL)
+添加检查约束
+语法	ATTER TABLE TABLE_NAME
+	ADD CONSTRAINT CON_NAME
+	CHECK(EXP)
+添加默认值
+语法	ALTER TABLE TABLE_NAME
+	ALTER COL_NAME SET DEFAULT VALUE
+添加自动增长
+语法	ALTER TABLE TABLE_NAME
+	MODIFY COLUMN COL_NAME ...AUTO_INCREMENT
+
+删除数据表
+删除无关联的数据表
+语法	DROP TABLE [IF EXISTS] TABLE_NAME1,TABLE_NAME2
+删除有关联的数据表
+1.先解除关联关系
+语法	ALTER TABLE F_TABLE_NAME DROP FOREIGN KEY CON_NAME
+2.删除表
+语法	DROP TABLE TABLE1,TABLE2...
+
+插入数据
+所有列都插入数据
+语法	INSERT [INTO] TABLE_NAME 
+	VALUES(V1,V2,V3...Vn)
+为特定列插入值
+语法	INSERT [INTO] TABEL_NAME (COL1,COL2...COLn)
+	VALUES(V1,V2,V3...Vn)
+一次性插入多组值
+语法	INSERT [INTO] TABLE_NAME [(COL1,COL2,COL3...COLn)]
+	VALUES(V11,V12...V1n),(V21,V22...V2n)...
+
+修改数据
+修改全部数据
+语法	UPDATE TABLE_NAME
+	SET{COL_NAME=EXPRESSION}[,....n]
+修改特定数据
+语法	UPDATE TABLE_NAME
+	SET{COL_NAME=EXPRESSION}[,....n]
+	WHERE CONDITION_EXPRESSION
+
+删除数据
+使用DELETE命令删除数据
+语法	DELETE [FROM] TABLE_NAME
+	[WHERE CONDITON_EXPRESSION
+使用TRUNCATE TABLE删除数据
+语法	TRUNCATE TABLE_NAME
+
+简单查询
+查询全部列
+语法	SELECT 加个全部列名（逗号隔开）
+	FROM 表名/
+	SELECT * FROM 表名
+查询部分列
+语法	SELECT 加个部分列名（逗号隔开）
+	FROM 表名/
+	SELECT * FROM 表名
+别名 
+语法	SELECT 加列名 [AS] ...
+	FROM 表名
+DESTINCT	消除结果集中的重复行，一般位于SELECT后面
+LIMIT	指定结果集中数据的显示范围
+用法：SELECT * FROM 表名 LIMIT+起始位置，加长度（若LIMIT后面只有一个数，即是从开头到此数长度的查询）
+
+条件查询
+普通条件查询
+语法	SELECT COL_LIST/* FROM TABLE_NAME
+	[WHERE CONDITION_EXPRESSION]
+AND，OR,NOT:连接多个条件
+模糊查询
+语法
+SELECT COL_LIST/* FROM TABLE_NAME
+	[WHERE CONDITION_EXPRESSION]
+[NOT]BETWEEN ... AND...,...AND...，
+[NOT] LIKE...，IS [NOT] NULL（查询空值）
+通配符
+‘_’	一个字符
+%	任意长度	
+[]	任意范围内
+[^]	不在括号内
+
+对查询结果排序
+对指定列排序
+语法	SELECT COL_LIST FROM TABLE_NAME
+	ORDER ORDER_BY_LIST [ASC][DSEC]
+对多列排序
+语法
+	SELECT COL_LIST/* FROM TABLE_NAME
+	ORDER BY COL1 ASC,COL2 DESC
+
+汇总和分组数据
+聚合函数 支持的数据类型
+sum（）		数字
+avg（）		数字
+min（）	数字、字符、datetime
+max（）	数字、字符、datetime
+count	任意基于行的数据类型
+count
+语法	SELECT COUNT(COL_NAME) FROM TABLE_NAME
+	SELECT COUNT(*) FROM TABLE_NAME
+sum
+语法	SELECT SUM(COL_NAME) AS '...' FROM TABLE_NAME
+	[WHERE CONDITION_EXPRESSION]
+AVG
+语法	SELECT AVG(COL_NAME) AS '...' FROM TABLE_NAME
+	[WHERE CONDITION_EXPRESSION]
+MAX/MIN
+语法	SELECT MAX/MIN(COL_NAME) AS '...' FROM TABLE_NAME
+	[WHERE CONDITION_EXPRESSION]
+使用GROUP BY分组
+语法	GROUP BY COL_NAME
+筛选分组结果
+语法	HAVING（位于GROUP BY之后） 聚合函数 CONDITION_EXPRESSION
+SELECT语句的执行顺序
+from子句指定数据源。
+where子句基于指定的条件对记录进行筛选。
+group by子句将数据划分为多个分组。
+使用聚合函数进行计算
+使用havingg子句筛选分组
+使用order by子句对结果集进行排序
+
+连接查询（内连接和外连接）
+	隐式内连接
+	语法	SELECT COL_LIST
+		FROM TABLE1 ,TABLE2 ....
+		WHERE TABLE1.COL = TABLE2.COL
+内连接（两表地位相当）
+	显示内连接(比隐式内连接更快)	
+	语法	SELECT COL_LIST
+		FROM TABLE1 [INNER]JOIN TABLE2
+		ON TABLE1.COL = TABLE2.COL
+	左外连接
+外连接（两表地位不等，语句中先出现的表为基础表）
+	右外连接
+语法	SELECT COL_LIST
+	FROM TABLE1 LEFT/RIGHT [OUTER] JOIN TABLE2
+	ON TABLE1.COL = TABLE2.COL
+
+子查询
+1、将查询结果作为另一个查询的条件
+2、我们的查询结果作为另一个查询的数据源，当成一张表，
+且当成表的过程中，必须起别名
+语法	SELECT*FROM SCORES
+	WHERE GNO IN/EXISTS
+	(SELECT GNO FROM GAMES WHERE GTYPE='棋牌类')
+注意：子查询一般不写成SELECT*FROM...
+
+
+联合查询
+作用与特点：可以把多条查询语句所产生的结果纵向的连接为一体
+	    有ALL关键字可以显示全部数据（即重复的也显示出来）
+	    列的数量和类型都要兼容
+语法	SELECT_STATEMENT
+	UNION[ALL]SELECT_STATEMENT
+	[UNION[ALL]SELECT_STATEMENT]
+	[.....n]
+
+日期和时间函数
+返回日期函数有：CURDATE(),CURRENT_DATE(),CURDATE()+0(数值类型)
+返回时间函数有：CURTIME(),CURRENT_TIME(),CURTIMIE()+0(数值类型)
+同时返回日期和时间的函数有：CURRENT_TIMESTAMP()
+				  LOCALTIME()
+				  NOW()
+				  SYSDATE()
+获取月份的函数有：MONTH(DATE)
+		  MONTHNAME(DATE)
+获取星期的函数有：DAYNAME(DATE)
+		  DAYOFWEEK(DATE)
+		  WEEKDAY(DATE)
+		  WEEK(DATE)
+		  WEEKOFYEAR(DATE)
+获取天数的函数有：DAYOFYEAR(DATE)
+		  DAYOFMONTH(DATE)
+获取年份、季度、小时、分钟、秒钟的函数有：YEAR(DATE)
+					  QUARTER(DATE)
+					  HOUR(TIME)
+					  MINUTE(TIME)
+					  SECOND(TIME)
+数学函数
+绝对值函数： ABS(X)
+符号函数：SIGN(X)
+随机数函数：RAND(),RAND(X)
+获取整数的函数：CEIL(X)/CEILING(X)
+		FLOOR(X)
+四舍五入函数：ROUND(X)
+	      ROUND(X,Y)
+	      TRUNCATE(X,Y)
+求余数函数：MOD
+幂函数：POW(X,Y)
+	EXP(X)
+	SQRT(X)
+角度弧度互换函数：RADIANS(X)（角度转弧度）
+		  DEGREES(X)（弧度转角度）
+圆周率函数：PI()
+三角函数：SIN(X),ASIN(X),COS(X),ACOS(X),TAN(X),ATAN(X),COT(X)
+
+字符串函数
+计算字符数和字符串长度的函数：CHAR_LENGTH(S)
+			      LENGTH(S)
+合并字符串函数：CONCAT(S1,S2...)
+		CONCAT_WS(X,S1,S2...)
+替换字符串函数：INSERT(S1,X,LEN,S2)
+		REPLACE(S,S1,S2)
+截取字符串函数：LEFT(S,N)
+		RIGHT(S,N)
+重复生成字符串函数：REPEAT(S,N)
+大小写转换函数：LOWER(X)/LCASE(X)
+		UPPER(X)/UCASE(X)
+填充字符串的函数：LPAD(S1,LEN,S2)
+		  RPAD(S1,LEN,S2)
+
+删除空格函数：RTRIM(S)/LTRIM(S)
+	      TRIM(S)
+删除指定字符串函数：TRIM(S1 FROM S)
+获取字符串函数：SUBSTRING(S,N,LEN)
+		MID(S,N,LEN)
+返回指定位置的子字符串函数：ELT(N,S1,S2,...,Sn)
+返回指定字符串位置函数：FIELD(S,S1,S2,...,Sn)
+
+系统函数
+查看MySQL版本号	VERSION()
+查看当前用户的连接数	CONNECTION_ID()
+查看当前所用数据库函数 DATABASE()
+			SCHEMA()
+获取用户名的函数 USER()
+		 CURRENT_USER()
+		 SYSTEM_USER()
+		 SESSION_USER()
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

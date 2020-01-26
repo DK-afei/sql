@@ -1,0 +1,6 @@
+mysql表的操作
+1、show tables；查看当前数据库都有哪些数据表
+2、create table + 表名（字段名称，字段类型，字段名称，字段类型……）；创建数据表
+3、drop table + 表名；删除数据表
+4、select * from + 表名； 查看表中的所有数据
+5、desc + 表名； 查看表的结构

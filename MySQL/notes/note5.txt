@@ -1,0 +1,12 @@
+mysql的约束
+同一个字段添加多个约束不需要逗号，直接在创建表时跟在字段类型后面，用空格隔开
+1、unique 唯一约束
+2、not null 非空约束
+3、primary 主键约束
+非空约束和唯一约束的一个组合我们称之为主键约束
+4、auto_increment 一般数字类型主键配合mysql的自动增长策略
+5、references 外键约束
+外键必须是另一张表的主键 
+6、check 检查约束
+例：create  table s(num int primary key auto_increment,name varchar(11),classnum int, foreign key(classnum) references class(num));
+注意：上面的class的num字段必须是主键约束

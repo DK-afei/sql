@@ -1,0 +1,6 @@
+mysql数据库表的插入、删除和修改
+1、insert into 表名（字段名……）values（字段的值）；/
+insert into 表名 values（表中所有字段的值）；向表中插入数据
+2、delete from 表名；清空表
+delet from 表名 where 条件表达式；删除的sql语句格式 筛选性的删除
+3、update 表名 set 字段名 = 新的字段名，…… where 条件表达式；修改表中记录
